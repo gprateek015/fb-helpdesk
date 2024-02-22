@@ -157,7 +157,7 @@ const Conversation = () => {
             >
               <CircularProgress />
             </Grid>
-          ) : (
+          ) : chats.length !== 0 ? (
             chats.map((chat, ind) => (
               <MessageBox
                 key={ind}
@@ -171,6 +171,10 @@ const Conversation = () => {
                 }
               />
             ))
+          ) : (
+            <Typography fontWeight={600} textAlign={'center'}>
+              No messages yet
+            </Typography>
           )}
         </Grid>
         <Grid mb='10px'>

@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <Grid
       sx={{
-        background: '#25507b',
+        background: '#0a4d90',
         height: '100vh',
         width: '100vw',
         overflowX: 'hidden'

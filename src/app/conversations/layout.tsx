@@ -29,7 +29,7 @@ export default function Layout({
         width={'70px'}
         height={'100%'}
         sx={{
-          background: '#25507b',
+          background: '#0a4d90',
           display: 'flex',
           justifyContent: 'space-between',
           flexDirection: 'column',
@@ -56,7 +56,7 @@ export default function Layout({
           >
             <AcUnitIcon sx={{ color: 'white' }} />
           </IconButton> */}
-          <Image src={Logo} alt='logo' />
+          <Image src={Logo} alt='logo' width={60} height={60} />
           <IconButton
             sx={{
               height: '60px',
@@ -68,7 +68,7 @@ export default function Layout({
               }
             }}
           >
-            <InboxIcon sx={{ color: '#25507b' }} />
+            <InboxIcon sx={{ color: '#0a4d90' }} />
           </IconButton>
           <IconButton
             sx={{

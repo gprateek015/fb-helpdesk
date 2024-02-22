@@ -4,14 +4,18 @@ import { fetchSelf } from './auth';
 
 export const createPage = createAsyncThunk(
   'create/page',
-  async ({
-    access_token,
-    user_id
-  }: {
-    access_token: string;
-    user_id: string;
-  }) => {
+  async (
+    {
+      access_token,
+      user_id
+    }: {
+      access_token: string;
+      user_id: string;
+    },
+    { dispatch }
+  ) => {
     const response = await Axios.post('/api/page', { access_token, user_id });
+    await dispatch(fetchSelf());
     return response.data;
   }
 );

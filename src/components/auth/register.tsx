@@ -25,7 +25,7 @@ const Register = ({ loginForm }: { loginForm: Function }) => {
   const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<RegisterData> = async data => {
-    dispatch(registerUser(data));
+    await dispatch(registerUser(data));
   };
 
   return (
@@ -88,7 +88,7 @@ const Register = ({ loginForm }: { loginForm: Function }) => {
           variant='contained'
           fullWidth
           type='submit'
-          onSubmit={handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmit)}
         >
           Sign Up
         </Button>

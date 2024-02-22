@@ -94,67 +94,69 @@ const UserProfile = () => {
           padding: '10px'
         }}
       >
-        <Grid
-          sx={{
-            border: '1px solid #dedede',
-            borderRadius: '10px',
-            padding: '10px 15px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '5px',
-            background: 'white',
-            boxShadow: '0px 1px 3px 0px #00000021'
-          }}
-        >
-          <Typography fontWeight={'600'}>Customer details</Typography>
-          {customer?.email && (
+        {customer?.first_name && (
+          <Grid
+            sx={{
+              border: '1px solid #dedede',
+              borderRadius: '10px',
+              padding: '10px 15px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '5px',
+              background: 'white',
+              boxShadow: '0px 1px 3px 0px #00000021'
+            }}
+          >
+            <Typography fontWeight={'600'}>Customer details</Typography>
+            {customer?.email && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <Typography fontSize={'14px'}>Email</Typography>
+                <Typography fontWeight={'600'} fontSize={'14px'}>
+                  some@gmail.com
+                </Typography>
+              </Box>
+            )}
             <Box
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between'
               }}
             >
-              <Typography fontSize={'14px'}>Email</Typography>
+              <Typography fontSize={'14px'}>First Name</Typography>
               <Typography fontWeight={'600'} fontSize={'14px'}>
-                some@gmail.com
+                {customer?.first_name}
               </Typography>
             </Box>
-          )}
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between'
-            }}
-          >
-            <Typography fontSize={'14px'}>First Name</Typography>
-            <Typography fontWeight={'600'} fontSize={'14px'}>
-              {customer?.first_name}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between'
+              }}
+            >
+              <Typography fontSize={'14px'}>Last Name</Typography>
+              <Typography fontWeight={'600'} fontSize={'14px'}>
+                {customer?.last_name}
+              </Typography>
+            </Box>
+            <Typography
+              sx={{
+                cursor: 'pointer',
+                fontWeight: '600',
+                color: '#0a4d90',
+                '&:hover': {
+                  textDecoration: 'underline'
+                }
+              }}
+            >
+              View more details
             </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between'
-            }}
-          >
-            <Typography fontSize={'14px'}>Last Name</Typography>
-            <Typography fontWeight={'600'} fontSize={'14px'}>
-              {customer?.last_name}
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              cursor: 'pointer',
-              fontWeight: '600',
-              color: '#25507b',
-              '&:hover': {
-                textDecoration: 'underline'
-              }
-            }}
-          >
-            View more details
-          </Typography>
-        </Grid>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );
