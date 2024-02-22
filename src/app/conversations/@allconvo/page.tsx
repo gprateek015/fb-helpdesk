@@ -10,7 +10,7 @@ import { Conversation, selectConversation } from '@/redux/slice/conversation';
 import { fetchAllConversations } from '@/actions/conversation';
 import '@/app/conversations/@allconvo/page.css';
 
-const page = () => {
+const Conversations = () => {
   const { allConversations, selectedConversation } = useSelector(
     state => state.conversation
   );
@@ -84,4 +84,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Conversations;

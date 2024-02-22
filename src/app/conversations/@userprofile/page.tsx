@@ -9,7 +9,7 @@ import CallIcon from '@mui/icons-material/CallSharp';
 import AccountIcon from '@mui/icons-material/AccountCircleSharp';
 import { useSelector } from '@/redux/store';
 
-const page = () => {
+const UserProfile = () => {
   const { customer } = useSelector(state => state.conversation);
   return (
     <Grid
@@ -160,4 +160,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserProfile;
