@@ -5,6 +5,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 
 import ProfileImg from '@/assets/profile.jpg';
+import Logo from '@/assets/logo.png';
 import Image from 'next/image';
 
 export default function Layout({
@@ -46,7 +47,7 @@ export default function Layout({
             mt: '10px'
           }}
         >
-          <IconButton
+          {/* <IconButton
             sx={{
               height: '60px',
               borderRadius: '0px',
@@ -54,7 +55,8 @@ export default function Layout({
             }}
           >
             <AcUnitIcon sx={{ color: 'white' }} />
-          </IconButton>
+          </IconButton> */}
+          <Image src={Logo} alt='logo' />
           <IconButton
             sx={{
               height: '60px',
