@@ -3,14 +3,22 @@
 import { fetchMessages, sendMessage } from '@/actions/conversation';
 import { FormInput } from '@/components/auth/styles';
 import MessageBox from '@/components/message-box';
-import { Message } from '@/redux/slice/conversation';
+import {
+  Message,
+  openUserProfile,
+  selectConversation
+} from '@/redux/slice/conversation';
+import CloseIcon from '@mui/icons-material/Close';
 import { updatePrevPath } from '@/redux/slice/user';
 import { useDispatch, useSelector } from '@/redux/store';
 import {
   CircularProgress,
   Grid,
+  IconButton,
   InputAdornment,
-  Typography
+  Typography,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -34,6 +42,9 @@ const Conversation = () => {
   const [textMsg, setTextMsg] = useState('');
   const [msgSending, setMsgSending] = useState(false);
   const pathname = usePathname();
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const fetchAllMessages = async (conversation_id: string) => {
     setLoading(true);
@@ -48,6 +59,10 @@ const Conversation = () => {
     );
     setTextMsg('');
     setMsgSending(false);
+  };
+
+  const clearSelectedConvo = () => {
+    dispatch(selectConversation(''));
   };
 
   const chats = useMemo(() => {
@@ -105,7 +120,9 @@ const Conversation = () => {
         sx={{
           border: '1px solid #dedede',
           padding: '15px',
-          height: '62px'
+          height: '62px',
+          display: 'flex',
+          justifyContent: 'space-between'
         }}
       >
         {loading ? (
@@ -121,9 +138,15 @@ const Conversation = () => {
               fontWeight: '600',
               fontSize: '20px'
             }}
+            onClick={() => dispatch(openUserProfile())}
           >
             {`${customer.first_name} ${customer.last_name}`}
           </Typography>
+        )}
+        {isMobile && (
+          <IconButton>
+            <CloseIcon onClick={() => clearSelectedConvo()} />
+          </IconButton>
         )}
       </Grid>
       <Grid

@@ -1,7 +1,14 @@
 'use client';
 
 import ConversationBox from '@/components/conversation-box/page';
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import RefreshIcon from '@mui/icons-material/RefreshSharp';
 import SegmentIcon from '@mui/icons-material/Segment';
@@ -16,6 +23,8 @@ const Conversations = () => {
   );
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const fetchConversations = async () => {
     setLoading(true);
@@ -25,17 +34,19 @@ const Conversations = () => {
   };
 
   useEffect(() => {
-    if (!selectedConversation) {
+    if (!selectedConversation && !isMobile) {
       dispatch(selectConversation(allConversations?.[0]?._id));
+    } else if (isMobile) {
+      dispatch(selectConversation(''));
     }
-  }, [allConversations]);
+  }, [allConversations, isMobile]);
 
   useEffect(() => {
     fetchConversations();
   }, []);
 
   return (
-    <Grid width={'300px'}>
+    <Grid width={{ xs: 'calc(100vw - 60px)', md: '300px' }}>
       <Grid
         sx={{
           border: '1px solid #dedede',

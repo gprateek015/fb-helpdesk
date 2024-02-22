@@ -30,6 +30,7 @@ type InitialStateType = {
   data: Message[]; // Messages for selected conversation
   customer: Customer;
   selectedConversation: string;
+  isUserProfileOpen: boolean;
 };
 
 const initialState: InitialStateType = {
@@ -41,7 +42,8 @@ const initialState: InitialStateType = {
     email: '',
     profile_pic: ''
   },
-  selectedConversation: ''
+  selectedConversation: '',
+  isUserProfileOpen: false
 };
 
 export const conversationSlice = createSlice({
@@ -50,6 +52,13 @@ export const conversationSlice = createSlice({
   reducers: {
     selectConversation: (state, action) => {
       state.selectedConversation = action.payload;
+      state.isUserProfileOpen = false;
+    },
+    openUserProfile: state => {
+      state.isUserProfileOpen = true;
+    },
+    closeUserProfile: state => {
+      state.isUserProfileOpen = false;
     }
   },
   extraReducers: builder => {
@@ -64,6 +73,7 @@ export const conversationSlice = createSlice({
   }
 });
 
-export const { selectConversation } = conversationSlice.actions;
+export const { selectConversation, openUserProfile, closeUserProfile } =
+  conversationSlice.actions;
 
 export default conversationSlice.reducer;

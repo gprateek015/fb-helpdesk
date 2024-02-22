@@ -1,25 +1,51 @@
 'use client';
 
-import { Grid, Typography, Box, Button } from '@mui/material';
+import {
+  Grid,
+  Typography,
+  Box,
+  Button,
+  useTheme,
+  useMediaQuery,
+  IconButton
+} from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 
 import ProfileJPG from '@/assets/profile.jpg';
 import CallIcon from '@mui/icons-material/CallSharp';
 import AccountIcon from '@mui/icons-material/AccountCircleSharp';
-import { useSelector } from '@/redux/store';
+import { useDispatch, useSelector } from '@/redux/store';
+import CloseIcon from '@mui/icons-material/Close';
+import { closeUserProfile } from '@/redux/slice/conversation';
 
 const UserProfile = () => {
   const { customer } = useSelector(state => state.conversation);
+  const dispatch = useDispatch();
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <Grid
-      width={'300px'}
+      width={{ xs: '100vw', md: '300px' }}
       sx={{
         border: '1px solid #dedede',
         display: 'flex',
         flexDirection: 'column'
       }}
     >
+      {isMobile && (
+        <IconButton
+          sx={{
+            alignSelf: 'flex-end',
+            margin: '10px 15px'
+          }}
+          onClick={() => dispatch(closeUserProfile())}
+        >
+          <CloseIcon />
+        </IconButton>
+      )}
       <Grid
         sx={{
           padding: '20px 20px 30px',

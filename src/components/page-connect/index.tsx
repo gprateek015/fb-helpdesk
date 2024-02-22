@@ -31,11 +31,15 @@ const FBPageConnect = () => {
       maxWidth='sm'
       PaperProps={{
         sx: {
-          borderRadius: '25px'
+          borderRadius: '25px',
+          margin: '10px'
         }
       }}
     >
-      <Grid p='40px 50px 30px' width={'400px'}>
+      <Grid
+        p={{ xs: '20px 20px 30px', md: '40px 50px 30px' }}
+        width={{ xs: 'calc(100vw - 30px)', md: '400px' }}
+      >
         <Grid mb='20px'>
           <Typography textAlign={'center'} fontWeight={'600'} mb='5px'>
             Facebook Page Integration

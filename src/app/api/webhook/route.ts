@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import Customer from '@/models/customer';
 import Page from '@/models/page';
 import Conversation from '@/models/conversation';
+import crypto from 'crypto';
 import Message from '@/models/message';
 
 const getCustomerData = async ({
@@ -46,7 +47,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   await dbConnect();
 
-  // var signature = req.headers['x-hub-signature-256'];
+  // const rawBody = await request.text();
+  // var signature = request.headers.get('x-hub-signature-256');
 
   // if (!signature) {
   //   console.warn(`Couldn't find "x-hub-signature-256" in headers.`);
@@ -55,8 +57,9 @@ export async function POST(request: NextRequest) {
   //   var signatureHash = elements[1];
   //   var expectedHash = crypto
   //     .createHmac('sha256', 'bcfe1a4e88d64460dbb1c40347e6a06b')
-  //     .update(req.body)
+  //     .update(rawBody)
   //     .digest('hex');
+  //
   //   if (signatureHash != expectedHash) {
   //     throw new Error("Couldn't validate the request signature.");
   //   }
