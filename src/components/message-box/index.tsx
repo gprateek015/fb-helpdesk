@@ -45,8 +45,9 @@ const MessageBox = ({
 
       <Grid>
         <Grid sx={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
-          {messages.map(messaage => (
+          {messages.map((messaage, ind) => (
             <Typography
+              key={ind}
               sx={{
                 background: 'white',
                 padding: '7px 10px',

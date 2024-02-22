@@ -23,7 +23,7 @@ const FBPageConnect = () => {
     } else {
       dispatch(clearPage());
     }
-  }, [fbConnected]);
+  }, [fbConnected, dispatch, session, session.data]);
 
   return (
     <Dialog

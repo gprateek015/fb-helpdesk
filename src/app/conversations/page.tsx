@@ -21,7 +21,7 @@ type Chat = {
   msg_by: 'user' | 'customer';
 };
 
-const page = () => {
+const Conversation = () => {
   const {
     selectedConversation,
     customer,
@@ -208,4 +208,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Conversation;
