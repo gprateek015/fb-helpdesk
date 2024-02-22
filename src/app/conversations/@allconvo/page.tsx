@@ -14,7 +14,7 @@ import RefreshIcon from '@mui/icons-material/RefreshSharp';
 import SegmentIcon from '@mui/icons-material/Segment';
 import { useDispatch, useSelector } from '@/redux/store';
 import { Conversation, selectConversation } from '@/redux/slice/conversation';
-import { fetchAllConversations } from '@/actions/conversation';
+import { fetchAllConversations, fetchMessages } from '@/actions/conversation';
 import '@/app/conversations/@allconvo/page.css';
 
 const Conversations = () => {
@@ -29,6 +29,10 @@ const Conversations = () => {
   const fetchConversations = async () => {
     setLoading(true);
     await dispatch(fetchAllConversations());
+
+    if (selectedConversation) {
+      await dispatch(fetchMessages({ conversation_id: selectedConversation }));
+    }
 
     setLoading(false);
   };

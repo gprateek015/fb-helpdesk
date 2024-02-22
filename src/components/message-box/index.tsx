@@ -2,7 +2,7 @@ import { Message } from '@/redux/slice/conversation';
 import { useSelector } from '@/redux/store';
 import { Box, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileImg from '@/assets/profile.jpg';
 import moment from 'moment';
 
@@ -20,6 +20,13 @@ const MessageBox = ({
   const {
     customer: { profile_pic }
   } = useSelector(state => state.conversation);
+  const [showTimestampMsgInd, setShowTimestampMsgInd] = useState(-1);
+
+  useEffect(() => {
+    if (timestamps?.length > 0) {
+      setShowTimestampMsgInd(timestamps.length - 1);
+    }
+  }, [timestamps]);
 
   return (
     <Grid
@@ -46,35 +53,40 @@ const MessageBox = ({
       <Grid>
         <Grid sx={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
           {messages.map((messaage, ind) => (
-            <Typography
-              key={ind}
-              sx={{
-                background: 'white',
-                padding: '7px 10px',
-                borderRadius: '5px',
-                boxShadow: '0px 0px 10px 0px #00000021',
-                fontSize: '15px'
-              }}
-            >
-              {messaage}
-            </Typography>
+            <Grid key={ind}>
+              <Typography
+                onClick={() => setShowTimestampMsgInd(ind)}
+                sx={{
+                  background: 'white',
+                  padding: '7px 10px',
+                  borderRadius: '5px',
+                  boxShadow: '0px 0px 10px 0px #00000021',
+                  fontSize: '15px',
+                  cursor: 'pointer'
+                }}
+              >
+                {messaage}
+              </Typography>
+              {showTimestampMsgInd === ind && (
+                <Box
+                  fontSize={'12px'}
+                  sx={{
+                    display: 'flex',
+                    gap: '5px',
+                    mt: '5px'
+                  }}
+                >
+                  <Typography fontSize={'11px'}>{name} •</Typography>
+                  <Typography fontSize={'11px'}>
+                    {moment(new Date(Number(timestamps[ind]))).format(
+                      'MMM DD, hh:mm A'
+                    )}
+                  </Typography>
+                </Box>
+              )}
+            </Grid>
           ))}
         </Grid>
-        <Box
-          fontSize={'12px'}
-          sx={{
-            display: 'flex',
-            gap: '5px',
-            mt: '5px'
-          }}
-        >
-          <Typography fontSize={'11px'}>{name} •</Typography>
-          <Typography fontSize={'11px'}>
-            {moment(new Date(Number(timestamps[timestamps.length - 1]))).format(
-              'MMM DD, HH:mm A'
-            )}
-          </Typography>
-        </Box>
       </Grid>
     </Grid>
   );
