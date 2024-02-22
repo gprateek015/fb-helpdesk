@@ -32,7 +32,7 @@ const registerUser = async (req: NextRequest) => {
 const fetchSelf = async (req: NextRequest) => {
   await dbConnect();
 
-  const user = getUser(req);
+  const user = await getUser(req);
 
   return NextResponse.json({ user }, { status: 200 });
 };

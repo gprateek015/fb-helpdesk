@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 
 import Providers from '@/components/providers';
+import { Grid } from '@mui/material';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +20,16 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Grid
+            sx={{
+              height: '100vh',
+              width: '100vw'
+            }}
+          >
+            {children}
+          </Grid>
+        </Providers>
       </body>
     </html>
   );

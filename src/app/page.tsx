@@ -4,21 +4,39 @@ import Image from 'next/image';
 import { Button, Grid } from '@mui/material';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
+import Auth from '@/components/auth';
+import FBPageConnect from '@/components/page-connect';
+import { useDispatch, useSelector } from '@/redux/store';
+import { autoLogin } from '@/utils';
+import { useRouter } from 'next/navigation';
+import { clearPrevPath } from '@/redux/slice/user';
 
 export default function Home() {
-  const session = useSession();
+  const dispatch = useDispatch();
+  const { isLoggedin, previousPath } = useSelector(state => state.user);
+  const router = useRouter();
 
   useEffect(() => {
-    if (session.status === 'authenticated') {
-      // dispatch(socialLogin({ ...session.data.user }));
-      console.log(session);
+    dispatch(autoLogin());
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedin) {
+      router.push(previousPath || '/');
+      dispatch(clearPrevPath());
     }
-  }, [session]);
+  }, [isLoggedin]);
 
   return (
-    <Grid>
-      <Button onClick={() => signIn('facebook')}>Facebook</Button>
-      <Button onClick={() => signOut()}>Logout</Button>
+    <Grid
+      sx={{
+        background: '#25507b',
+        height: '100vh',
+        width: '100vw',
+        overflowX: 'hidden'
+      }}
+    >
+      {isLoggedin ? <FBPageConnect /> : <Auth />}
     </Grid>
   );
 }

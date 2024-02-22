@@ -1,4 +1,10 @@
 import mongoose from 'mongoose';
+import _page from '@/models/page';
+import _user from '@/models/user';
+import _conversation from '@/models/conversation';
+import _message from '@/models/message';
+import _customer from '@/models/customer';
+
 declare global {
   var mongoose: any; // This must be a `var` and not a `let / const`
 }
@@ -26,6 +32,11 @@ async function dbConnect() {
       bufferCommands: false
     };
     cached.promise = mongoose.connect(MONGODB_URI, opts).then(mongoose => {
+      import('@/models/page');
+      import('@/models/user');
+      import('@/models/conversation');
+      import('@/models/message');
+      import('@/models/customer');
       return mongoose;
     });
   }

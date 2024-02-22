@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
       .limit(1);
     const convo = resp?.[0];
 
-    if (convo && convo.modified_at + 1000 * 60 * 60 * 24 < Date.now()) {
+    if (convo && Number(convo.modified_at) + 1000 * 60 * 60 * 24 > Date.now()) {
       // last convo
       const msg = await Message.create({
         conversation: convo,
@@ -88,6 +88,7 @@ export async function POST(request: NextRequest) {
         content: content
       });
       convo.last_msg = msg;
+      convo.modified_at = Date.now();
       await convo.save();
     } else {
       // new convo

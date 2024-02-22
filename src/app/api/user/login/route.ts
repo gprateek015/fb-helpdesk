@@ -10,7 +10,7 @@ const loginUser = async (req: NextRequest) => {
 
   const { email, password } = await req.json();
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate('page');
   if (user) {
     const match = await bcrypt.compare(password, user.password);
     if (match) {

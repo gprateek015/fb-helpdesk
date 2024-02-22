@@ -4,6 +4,7 @@ import Page from '@/models/page';
 import catchAsync from '@/lib/catch-async';
 import getUser from '@/lib/get-user';
 import User from '@/models/user';
+import dbConnect from '@/lib/mongo-connect';
 
 const getPageDetails = async ({
   user_id,
@@ -28,6 +29,7 @@ const getPageDetails = async ({
 };
 
 const createPage = async (req: NextRequest) => {
+  await dbConnect();
   const { user_id, access_token } = await req.json();
   const user = await getUser(req);
 
@@ -38,12 +40,17 @@ const createPage = async (req: NextRequest) => {
     user_id,
     access_token
   });
-  const page = new Page({
-    access_token: page_access_token,
-    page_id,
-    name,
-    admin_user: user
-  });
+
+  let page = await Page.findOne({ page_id });
+
+  if (!page) {
+    page = new Page({
+      access_token: page_access_token,
+      page_id,
+      name,
+      admin_user: user
+    });
+  }
 
   await page.save();
   await User.findByIdAndUpdate(user._id, { page });
@@ -51,4 +58,16 @@ const createPage = async (req: NextRequest) => {
   return NextResponse.json({ success: true, page }, { status: 200 });
 };
 
+const deletePage = async (req: NextRequest) => {
+  await dbConnect();
+  const user = await getUser(req);
+  if (!user) {
+    throw new Error('Authentication Error');
+  }
+
+  await User.findByIdAndUpdate(user._id, { page: null });
+  return NextResponse.json({ success: true });
+};
+
 export const POST = catchAsync(createPage);
+export const DELETE = catchAsync(deletePage);
