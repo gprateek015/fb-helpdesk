@@ -28,6 +28,18 @@ const getPageDetails = async ({
   };
 };
 
+const subscribeToPageMessages = async ({
+  page_id,
+  access_token
+}: {
+  page_id: string;
+  access_token: string;
+}) => {
+  await axios.post(
+    `https://graph.facebook.com/${page_id}/subscribed_apps?subscribed_fields=messages&access_token=${access_token}`
+  );
+};
+
 const createPage = async (req: NextRequest) => {
   await dbConnect();
   const { user_id, access_token } = await req.json();
@@ -41,6 +53,7 @@ const createPage = async (req: NextRequest) => {
     access_token
   });
 
+  await subscribeToPageMessages({ page_id, access_token: page_access_token });
   let page = await Page.findOne({ page_id });
 
   if (!page) {

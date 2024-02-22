@@ -72,9 +72,9 @@ const FBPageConnect = () => {
               variant='contained'
               color='warning'
               fullWidth
-              onClick={() => {
+              onClick={async () => {
+                await dispatch(deletePage());
                 signOut({ redirect: false });
-                dispatch(deletePage());
               }}
             >
               Delete Integration
