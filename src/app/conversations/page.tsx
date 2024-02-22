@@ -2,7 +2,7 @@
 
 import { fetchMessages, sendMessage } from '@/actions/conversation';
 import { FormInput } from '@/components/auth/styles';
-import MessageBox from '@/components/message-box/inde';
+import MessageBox from '@/components/message-box';
 import { Message } from '@/redux/slice/conversation';
 import { updatePrevPath } from '@/redux/slice/user';
 import { useDispatch, useSelector } from '@/redux/store';
@@ -160,9 +160,9 @@ const Conversation = () => {
           ) : (
             chats.map((chat, ind) => (
               <MessageBox
+                key={ind}
                 messages={chat.messages}
                 msg_by={chat.msg_by}
-                key={ind}
                 timestamps={chat.timestamps}
                 name={
                   chat.msg_by === 'user'
